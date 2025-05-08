@@ -8,11 +8,11 @@ import os
 
 
 # load .env file
-from dotenv import load_dotenv
+# from dotenv import load_dotenv
 
 # Spotify API credentials
-SPOTIPY_CLIENT_ID = os.getenv("SPOTIPY_CLIENT_ID")
-SPOTIPY_CLIENT_SECRET = os.getenv("SPOTIPY_CLIENT_SECRET")
+SPOTIPY_CLIENT_ID = "95614d11af4546dbb08b90dcc67bcd34"
+SPOTIPY_CLIENT_SECRET = "94809bebc2b54219a77a22aa2793e090"
 GENIUS_CLIENT_ACCESS_TOKEN = "REYJhsHt3VW_kE16jDw0pYr5ywujdCmzVzDxoVKVC_Yg_xhao-vFIucwYD3cI79g"
 
 client_credentials_manager = SpotifyClientCredentials(
@@ -77,7 +77,7 @@ i = 1
 
 # Collect up to 200 songs (50 per request, offset in steps of 50)
 for offset in range(0, 200, 50):
-    pop_tracks = sp.search(q="genre:hyperpop", type="track", limit=50, offset=offset)
+    pop_tracks = sp.search(q="genre:k-pop", type="track", limit=50, offset=offset)
 
     for track in pop_tracks["tracks"]["items"]:
         try:
@@ -147,7 +147,7 @@ df.to_csv("Student_dataset.csv", index=False)
 ###############################################################################################################################
 ###############################################################################################################################
 
-mendeley_df = pd.read_csv("mendeley-music-dataset.csv")
+mendeley_df = pd.read_csv("Mendeley_dataset.csv")
 # student_df = pd.read_csv("Student_dataset.csv")
 
 student_df = df
