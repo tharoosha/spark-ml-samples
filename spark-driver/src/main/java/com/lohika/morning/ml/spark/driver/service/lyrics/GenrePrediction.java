@@ -16,6 +16,9 @@ public class GenrePrediction {
         this.genre = genre;
     }
 
+    public GenrePrediction(String name, double apply, double apply1, double apply2, double apply3, double apply4, double apply5, double apply6, double apply7) {
+    }
+
     public String getGenre() {
         return genre;
     }

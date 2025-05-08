@@ -6,6 +6,7 @@ public enum Genre {
 
     POP("Pop <(^.^)/", 1D),
 
+
     UNKNOWN("Don\'t know :(", -1D);
 
     private final String name;
