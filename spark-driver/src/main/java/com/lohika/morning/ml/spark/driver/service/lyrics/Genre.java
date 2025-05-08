@@ -2,10 +2,21 @@ package com.lohika.morning.ml.spark.driver.service.lyrics;
 
 public enum Genre {
 
-    METAL("Metal \\m//", 0D),
+    POP("pop", 0D),
 
-    POP("Pop <(^.^)/", 1D),
+    COUNTRY("country", 1D),
 
+    BLUES("blues", 2D),
+
+    ROCK("rock", 3D),
+
+    JAZZ("jazz", 4D),
+
+    REGGAE("reggae", 5D),
+
+    HIP_HOP("hip hop", 6D),
+
+    HYPERPOP("hyperpop", 7D),
 
     UNKNOWN("Don\'t know :(", -1D);
 
