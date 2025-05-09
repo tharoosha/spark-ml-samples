@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Music Genre Prediction</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <div class="container">
+        <!-- Left Side: Input Form -->
+        <div class="left">
+            <h2>Enter Lyrics</h2>
+            <textarea id="lyrics" placeholder="Enter your song lyrics here..."></textarea>
+            <button id="predictButton">Predict</button>
+        </div>
+
+        <!-- Right Side: Result Display -->
+        <div class="right">
+            <h2>Prediction Result</h2>
+            <div id="genre"></div>
+            <div id="probabilities"></div>
+
+            <h3>Genre Probabilities</h3>
+            <canvas id="pieChart"></canvas>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
