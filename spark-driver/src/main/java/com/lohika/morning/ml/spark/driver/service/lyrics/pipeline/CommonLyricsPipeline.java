@@ -106,7 +106,7 @@ public abstract class CommonLyricsPipeline implements LyricsPipeline {
                         .when(col("genre").equalTo("jazz"), Genre.JAZZ.getValue())
                         .when(col("genre").equalTo("reggae"), Genre.REGGAE.getValue())
                         .when(col("genre").equalTo("hip hop"), Genre.HIP_HOP.getValue())
-                        .when(col("genre").equalTo("hyperpop"), Genre.HYPERPOP.getValue())
+                        .when(col("genre").equalTo("kpop"), Genre.KPOP.getValue())
                         .otherwise(Genre.UNKNOWN.getValue())
         );
 

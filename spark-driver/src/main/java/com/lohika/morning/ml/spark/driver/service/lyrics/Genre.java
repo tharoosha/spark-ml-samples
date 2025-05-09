@@ -16,7 +16,7 @@ public enum Genre {
 
     HIP_HOP("hip hop", 6D),
 
-    HYPERPOP("kpop", 7D),
+    KPOP("kpop", 7D),
 
     UNKNOWN("Don\'t know :(", -1D);
 

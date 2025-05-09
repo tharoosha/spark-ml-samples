@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Music Genre Prediction</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: space-between;
+            margin: 20px;
+        }
+        .container {
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+        }
+        .left, .right {
+            width: 48%;
+        }
+        .input-container {
+            margin-bottom: 20px;
+        }
+        textarea {
+            width: 100%;
+            height: 150px;
+            padding: 10px;
+            font-size: 16px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            box-sizing: border-box;
+        }
+        button {
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        .prediction-result {
+            margin-top: 20px;
+        }
+        canvas {
+            width: 100%;
+            height: 300px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Left Side: Input -->
+        <div class="left">
+            <div class="input-container">
+                <h2>Enter Lyrics</h2>
+                <textarea id="lyrics" placeholder="Enter your song lyrics here..."></textarea>
+            </div>
+            <button onclick="predict()">Predict</button>
+        </div>
+        
+        <!-- Right Side: Result & Chart -->
+        <div class="right">
+            <div class="prediction-result">
+                <h2>Prediction Result</h2>
+                <div id="genre"></div>
+                <div id="probabilities"></div>
+            </div>
+            <h3>Genre Probabilities</h3>
+            <canvas id="pieChart"></canvas>
+        </div>
+    </div>
+
+    <script>
+        function predict() {
+            const lyrics = document.getElementById("lyrics").value;
+            fetch("http://localhost:9090/music/predict", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({ lyrics: lyrics })
+            })
+            .then(response => response.json())
+            .then(data => {
+                // Show genre
+                document.getElementById("genre").innerHTML = `<strong>Genre:</strong> ${data.genre}`;
+                
+                // Show probabilities
+                let probabilitiesHtml = "<strong>Probabilities:</strong><br>";
+                Object.keys(data).forEach(key => {
+                    if (key !== "genre") {
+                        probabilitiesHtml += `${key}: ${data[key]}<br>`;
+                    }
+                });
+                document.getElementById("probabilities").innerHTML = probabilitiesHtml;
+
+                // Prepare data for pie chart
+                const genres = [
+                    "pop", "country", "blues", "rock", "jazz", "reggae", "hipHop", "kpop"
+                ];
+                const probabilities = genres.map(genre => data[`${genre}Probability`]);
+
+                // Generate pie chart
+                const ctx = document.getElementById("pieChart").getContext("2d");
+                new Chart(ctx, {
+                    type: 'pie',
+                    data: {
+                        labels: genres,
+                        datasets: [{
+                            label: 'Genre Probabilities',
+                            data: probabilities,
+                            backgroundColor: [
+                                "#FF5733", "#33FF57", "#3357FF", "#FF33A1", "#FF8333", "#33FFF0", "#FFEB33", "#6A33FF"
+                            ],
+                            borderColor: '#fff',
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        plugins: {
+                            legend: {
+                                position: 'top',
+                            },
+                            tooltip: {
+                                callbacks: {
+                                    label: function(tooltipItem) {
+                                        return tooltipItem.label + ": " + tooltipItem.raw.toExponential(2);
+                                    }
+                                }
+                            }
+                        }
+                    }
+                });
+            })
+            .catch(error => console.error("Error:", error));
+        }
+    </script>
+</body>
+</html>
